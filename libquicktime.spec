@@ -69,7 +69,7 @@ autoreconf -f -i
 	--disable-static \
 	--with-libdv \
 	--enable-libswscale \
-%ifarch %{ix86} x86_64 ia64
+%ifarch i686 pentium3 pentium4 athlon x86_64 ia64
 	--enable-mmx \
 %else
 	--disable-mmx
