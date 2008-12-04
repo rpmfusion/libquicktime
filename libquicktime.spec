@@ -1,7 +1,7 @@
 Summary: 	Library for reading and writing Quicktime files
 Name: 		libquicktime
-Version:	1.0.3
-Release:	4%{?dist}
+Version:	1.1.0
+Release:	1%{?dist}
 License:	LGPLv2+
 Group: 		System Environment/Libraries
 URL: 		http://libquicktime.sourceforge.net/
@@ -69,7 +69,7 @@ autoreconf -f -i
 	--disable-static \
 	--with-libdv \
 	--enable-libswscale \
-%ifarch i686 athlon pentium3 pentium4 x86_64 ia64
+%ifarch %{ix86} x86_64 ia64
 	--enable-mmx \
 %else
 	--disable-mmx
@@ -130,6 +130,9 @@ rm -rf $RPM_BUILD_ROOT
 # --------------------------------------------------------------------
 
 %changelog
+* Thu Dec  4 2008 kwizart <kwizart at gmail.com> - 1.1.0-1
+- Update to 1.1.0
+
 * Mon Sep 08 2008 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info - 1.0.3-4
 - rebuild for new x264
 
