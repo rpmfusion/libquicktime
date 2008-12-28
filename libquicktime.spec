@@ -121,7 +121,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(-,root,root,-)
-%{_bindir}/lqt-config
+%exclude %{_bindir}/lqt-config
 %{_includedir}/lqt/
 %{_libdir}/pkgconfig/libquicktime.pc
 %{_libdir}/%{name}*.so
@@ -132,6 +132,7 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Sun Dec 28 2008 kwizart <kwizart at gmail.com> - 1.1.1-1
 - Update to 1.1.1
+- Disable lqt-config (Fix RPM Fusion #265 )
 
 * Thu Dec  4 2008 kwizart <kwizart at gmail.com> - 1.1.0-1
 - Update to 1.1.0
