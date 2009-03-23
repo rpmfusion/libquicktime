@@ -16,7 +16,6 @@ BuildRequires:	libdv-devel >= 0.102-4 x264-devel faac-devel faad2-devel
 BuildRequires:	libavc1394-devel libraw1394-devel >= 0.9.0-12
 BuildRequires:	gtk2-devel >= 2.4.0
 BuildRequires:  gettext-devel
-BuildRequires:  libtool
 
 %package utils
 Summary:	Utilities for working with Quicktime files
@@ -54,8 +53,6 @@ enhancements. This package contains development files for %{name}.
 
 %prep
 %setup -q
-# regenerate configure to disable rpath
-autoreconf -f -i
 
 # --------------------------------------------------------------------
 
@@ -74,6 +71,10 @@ autoreconf -f -i
 %else
 	--disable-mmx
 %endif
+
+# remove rpath from libtool
+sed -i.rpath 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
+sed -i.rpath 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 
 make %{?_smp_mflags}
 
