@@ -1,7 +1,7 @@
 Summary: 	Library for reading and writing Quicktime files
 Name: 		libquicktime
 Version:	1.1.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	LGPLv2+
 Group: 		System Environment/Libraries
 URL: 		http://libquicktime.sourceforge.net/
@@ -131,6 +131,9 @@ rm -rf $RPM_BUILD_ROOT
 # --------------------------------------------------------------------
 
 %changelog
+* Fri Mar 27 2009 kwizart < kwizart at gmail.com > - 1.1.1-2
+- Rebuild for faad x264
+
 * Sun Dec 28 2008 kwizart <kwizart at gmail.com> - 1.1.1-1
 - Update to 1.1.1
 - Disable lqt-config (Fix RPM Fusion #265 )
