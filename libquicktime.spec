@@ -12,10 +12,11 @@ BuildRequires:	libdv-devel
 BuildRequires:	libpng-devel libjpeg-devel libGLU-devel
 BuildRequires:	libvorbis-devel ffmpeg-devel
 BuildRequires:	lame-devel alsa-lib-devel libXt-devel libXaw-devel libXv-devel
-BuildRequires:	libdv-devel >= 0.102-4 x264-devel faac-devel faad2-devel
+BuildRequires:	libdv-devel >= 0.102-4 x264-devel faad2-devel
 BuildRequires:	libavc1394-devel libraw1394-devel >= 0.9.0-12
 BuildRequires:	gtk2-devel >= 2.4.0
 BuildRequires:  gettext-devel
+%{?_with_faac:BuildRequires: faac-devel}
 
 %package utils
 Summary:	Utilities for working with Quicktime files
@@ -131,8 +132,9 @@ rm -rf $RPM_BUILD_ROOT
 # --------------------------------------------------------------------
 
 %changelog
-* Wed Oct  7 2009 kwizart <kwizart at gmail.com > - 1.1.3-1
+* Thu Oct 15 2009 kwizart <kwizart at gmail.com > - 1.1.3-1
 - Update to 1.1.3
+- Conditionalize faac
 
 * Fri Mar 27 2009 kwizart < kwizart at gmail.com > - 1.1.1-2
 - Rebuild for faad x264
