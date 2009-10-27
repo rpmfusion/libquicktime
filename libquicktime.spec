@@ -1,11 +1,12 @@
 Summary: 	Library for reading and writing Quicktime files
 Name: 		libquicktime
 Version:	1.1.3
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	LGPLv2+
 Group: 		System Environment/Libraries
 URL: 		http://libquicktime.sourceforge.net/
 Source0: 	http://downloads.sourceforge.net/libquicktime/%{name}-%{version}.tar.gz
+Patch0:         libquicktime-1.1.3-x264_b78.patch
 BuildRoot: 	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:	libdv-devel
@@ -54,6 +55,7 @@ enhancements. This package contains development files for %{name}.
 
 %prep
 %setup -q
+%patch0 -p1 -b .b78
 
 # --------------------------------------------------------------------
 
@@ -132,6 +134,9 @@ rm -rf $RPM_BUILD_ROOT
 # --------------------------------------------------------------------
 
 %changelog
+* Tue Oct 27 2009 kwizart <kwizart at gmail.com > - 1.1.3-2
+- backport patch from Alexis Ballier.
+
 * Thu Oct 15 2009 kwizart <kwizart at gmail.com > - 1.1.3-1
 - Update to 1.1.3
 - Conditionalize faac
