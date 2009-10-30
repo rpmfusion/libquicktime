@@ -1,7 +1,7 @@
 Summary: 	Library for reading and writing Quicktime files
 Name: 		libquicktime
 Version:	1.1.3
-Release:	2%{?dist}
+Release:	3%{?dist}
 License:	LGPLv2+
 Group: 		System Environment/Libraries
 URL: 		http://libquicktime.sourceforge.net/
@@ -12,6 +12,7 @@ BuildRoot: 	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires:	libdv-devel
 BuildRequires:	libpng-devel libjpeg-devel libGLU-devel
 BuildRequires:	libvorbis-devel ffmpeg-devel
+BuildRequires:	schroedinger-devel
 BuildRequires:	lame-devel alsa-lib-devel libXt-devel libXaw-devel libXv-devel
 BuildRequires:	libdv-devel >= 0.102-4 x264-devel faad2-devel
 BuildRequires:	libavc1394-devel libraw1394-devel >= 0.9.0-12
@@ -134,6 +135,9 @@ rm -rf $RPM_BUILD_ROOT
 # --------------------------------------------------------------------
 
 %changelog
+* Fri Oct 30 2009 kwizart <kwizart at gmail.com > - 1.1.3-3
+- Add BR schroedinger-devel
+
 * Tue Oct 27 2009 kwizart <kwizart at gmail.com > - 1.1.3-2
 - backport patch from Alexis Ballier.
 
