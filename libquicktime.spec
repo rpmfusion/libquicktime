@@ -1,12 +1,11 @@
 Summary: 	Library for reading and writing Quicktime files
 Name: 		libquicktime
-Version:	1.1.3
-Release:	3%{?dist}
+Version:	1.1.4
+Release:	1%{?dist}
 License:	LGPLv2+
 Group: 		System Environment/Libraries
 URL: 		http://libquicktime.sourceforge.net/
 Source0: 	http://downloads.sourceforge.net/libquicktime/%{name}-%{version}.tar.gz
-Patch0:         libquicktime-1.1.3-x264_b78.patch
 BuildRoot: 	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:	libdv-devel
@@ -56,7 +55,7 @@ enhancements. This package contains development files for %{name}.
 
 %prep
 %setup -q
-%patch0 -p1 -b .b78
+
 
 # --------------------------------------------------------------------
 
@@ -135,6 +134,9 @@ rm -rf $RPM_BUILD_ROOT
 # --------------------------------------------------------------------
 
 %changelog
+* Sat Jan 16 2010 Nicolas Chauvet <kwizart@fedoraproject.org> - 1.1.4-1
+- Update to 1.1.4
+
 * Fri Oct 30 2009 kwizart <kwizart at gmail.com > - 1.1.3-3
 - Add BR schroedinger-devel
 
