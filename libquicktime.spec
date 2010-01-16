@@ -68,12 +68,7 @@ enhancements. This package contains development files for %{name}.
 	--without-doxygen \
 	--disable-static \
 	--with-libdv \
-	--enable-libswscale \
-%ifarch i686 pentium3 pentium4 athlon x86_64 ia64
-	--enable-mmx \
-%else
-	--disable-mmx
-%endif
+	--enable-libswscale
 
 # remove rpath from libtool
 sed -i.rpath 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
