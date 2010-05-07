@@ -1,7 +1,7 @@
 Summary: 	Library for reading and writing Quicktime files
 Name: 		libquicktime
-Version:	1.1.4
-Release:	2%{?dist}
+Version:	1.1.5
+Release:	1%{?dist}
 License:	LGPLv2+
 Group: 		System Environment/Libraries
 URL: 		http://libquicktime.sourceforge.net/
@@ -16,6 +16,7 @@ BuildRequires:	lame-devel alsa-lib-devel libXt-devel libXaw-devel libXv-devel
 BuildRequires:	libdv-devel >= 0.102-4 x264-devel faad2-devel
 BuildRequires:	libavc1394-devel libraw1394-devel >= 0.9.0-12
 BuildRequires:	gtk2-devel >= 2.4.0
+BuildRequires:  schroedinger-devel
 BuildRequires:  gettext-devel
 %{?_with_faac:BuildRequires: faac-devel}
 
@@ -129,6 +130,9 @@ rm -rf $RPM_BUILD_ROOT
 # --------------------------------------------------------------------
 
 %changelog
+* Sat May 01 2010 Nicolas Chauvet <kwizart@fedoraproject.org> - 1.1.5-1
+- Update to 1.1.5
+
 * Mon Jan 25 2010 Nicolas Chauvet <kwizart@fedoraproject.org> - 1.1.4-2
 - Rebuild
 
