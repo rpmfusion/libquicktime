@@ -1,11 +1,12 @@
 Summary: 	Library for reading and writing Quicktime files
 Name: 		libquicktime
 Version:	1.1.5
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	LGPLv2+
 Group: 		System Environment/Libraries
 URL: 		http://libquicktime.sourceforge.net/
 Source0: 	http://downloads.sourceforge.net/libquicktime/%{name}-%{version}.tar.gz
+Patch0:         libquicktime-1.1.5-gtk.patch
 BuildRoot: 	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:	libdv-devel
@@ -56,6 +57,7 @@ enhancements. This package contains development files for %{name}.
 
 %prep
 %setup -q
+%patch0 -p1 -b .gtk
 
 
 # --------------------------------------------------------------------
@@ -130,6 +132,9 @@ rm -rf $RPM_BUILD_ROOT
 # --------------------------------------------------------------------
 
 %changelog
+* Sat Jul 10 2010 Nicolas Chauvet <kwizart@gmail.com> - 1.1.5-2
+- Add libquicktime-1.1.5-gtk.patch from Dan Horák.
+
 * Sat May 01 2010 Nicolas Chauvet <kwizart@fedoraproject.org> - 1.1.5-1
 - Update to 1.1.5
 
