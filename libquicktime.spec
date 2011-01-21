@@ -110,6 +110,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/libquicktime_config
 %{_bindir}/lqt_transcode
 %{_bindir}/lqtplay
+%{_bindir}/lqtremux
 %{_bindir}/qt2text
 %{_bindir}/qtdechunk
 %{_bindir}/qtdump
@@ -130,6 +131,7 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Fri Jan 21 2011 Nicolas Chauvet <kwizart@gmail.com> - 1.2.2-1
 - Update to 1.2.2
+- Add %%{_bindir}/lqtremux
 
 * Sat Jul 10 2010 Nicolas Chauvet <kwizart@gmail.com> - 1.1.5-2
 - Add libquicktime-1.1.5-gtk.patch from Dan Horák.
