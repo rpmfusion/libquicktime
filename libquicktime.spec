@@ -1,12 +1,11 @@
 Summary: 	Library for reading and writing Quicktime files
 Name: 		libquicktime
-Version:	1.1.5
-Release:	2%{?dist}
+Version:	1.2.2
+Release:	1%{?dist}
 License:	LGPLv2+
 Group: 		System Environment/Libraries
 URL: 		http://libquicktime.sourceforge.net/
 Source0: 	http://downloads.sourceforge.net/libquicktime/%{name}-%{version}.tar.gz
-Patch0:         libquicktime-1.1.5-gtk.patch
 BuildRoot: 	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:	libdv-devel
@@ -57,7 +56,6 @@ enhancements. This package contains development files for %{name}.
 
 %prep
 %setup -q
-%patch0 -p1 -b .gtk
 
 
 # --------------------------------------------------------------------
@@ -123,15 +121,16 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(-,root,root,-)
-%exclude %{_bindir}/lqt-config
 %{_includedir}/lqt/
 %{_libdir}/pkgconfig/libquicktime.pc
 %{_libdir}/%{name}*.so
-%{_datadir}/aclocal/lqt.m4
 
 # --------------------------------------------------------------------
 
 %changelog
+* Fri Jan 21 2011 Nicolas Chauvet <kwizart@gmail.com> - 1.2.2-1
+- Update to 1.2.2
+
 * Sat Jul 10 2010 Nicolas Chauvet <kwizart@gmail.com> - 1.1.5-2
 - Add libquicktime-1.1.5-gtk.patch from Dan Horák.
 
