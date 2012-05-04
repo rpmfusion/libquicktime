@@ -1,7 +1,7 @@
 Summary: 	Library for reading and writing Quicktime files
 Name: 		libquicktime
-Version:	1.2.2
-Release:	2%{?dist}
+Version:	1.2.4
+Release:	1%{?dist}
 License:	LGPLv2+
 Group: 		System Environment/Libraries
 URL: 		http://libquicktime.sourceforge.net/
@@ -129,6 +129,27 @@ rm -rf $RPM_BUILD_ROOT
 # --------------------------------------------------------------------
 
 %changelog
+* Tue May 01 2012 Nicolas Chauvet <kwizart@gmail.com> - 1.2.4-1
+- Update to 1.2.4
+
+* Tue Mar 13 2012 Nicolas Chauvet <kwizart@gmail.com> - 1.2.3-6
+- Rebuilt for x264 ABI 0.120
+
+* Wed Feb 22 2012 Nicolas Chauvet <kwizart@gmail.com> - 1.2.3-5
+- Rebuilt for x264/FFmpeg
+
+* Wed Feb 08 2012 Nicolas Chauvet <kwizart@gmail.com> - 1.2.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_17_Mass_Rebuild
+
+* Sun Sep  4 2011 Hans de Goede <j.w.r.degoede@gmail.com> - 1.2.3-3
+- Rebuilt for ffmpeg-0.8
+
+* Fri Jul 15 2011 Nicolas Chauvet <kwizart@gmail.com> - 1.2.3-2
+- Rebuilt for x264 ABI 115
+
+* Mon Jul 11 2011 Nicolas Chauvet <kwizart@gmail.com> - 1.2.3-1
+- Update to 1.2.3
+
 * Fri Mar 11 2011 Nicolas Chauvet <kwizart@gmail.com> - 1.2.2-2
 - Rebuilt for new x264/FFmpeg
 
