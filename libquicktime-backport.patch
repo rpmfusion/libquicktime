@@ -1,5 +1,5 @@
---- params.c	2012/03/07 14:10:41	1.18
-+++ params.c	2013/05/07 09:18:51	1.19
+--- plugins/ffmpeg/params.c	2012/03/07 14:10:41	1.18
++++ plugins/ffmpeg/params.c	2013/05/07 09:18:51	1.19
 @@ -101,6 +101,17 @@
      }                                           \
    }
@@ -75,8 +75,8 @@
    PARAM_ENUM("ff_coder_type",coder_type,coder_type);
    
    }
---- audio.c	2012/03/29 19:44:28	1.61
-+++ audio.c	2013/04/21 21:54:58	1.62
+--- plugins/ffmpeg/audio.c	2012/03/29 19:44:28	1.61
++++ plugins/ffmpeg/audio.c	2013/04/21 21:54:58	1.62
 @@ -45,6 +45,11 @@
  #define ENCODE_AUDIO 1
  #endif
@@ -89,8 +89,8 @@
  /* The following code was ported from gmerlin_avdecoder (http://gmerlin.sourceforge.net) */
  
  /* MPEG Audio header parsing code */
---- video.c	2012/11/27 15:46:40	1.117
-+++ video.c	2013/06/05 15:10:48	1.123
+--- plugins/ffmpeg/video.c	2012/11/27 15:46:40	1.117
++++ plugins/ffmpeg/video.c	2013/06/05 15:10:48	1.123
 @@ -469,7 +469,17 @@
    codec->reinterpret_pix_fmt = codec->avctx->pix_fmt;
  
