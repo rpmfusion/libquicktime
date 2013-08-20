@@ -1,0 +1,247 @@
+--- params.c	2012/03/07 14:10:41	1.18
++++ params.c	2013/05/07 09:18:51	1.19
+@@ -101,6 +101,17 @@
+     }                                           \
+   }
+ 
++#define PARAM_DICT_INT(name, dict_name)             \
++  {                                                 \
++  if(!strcasecmp(name, key))                        \
++    {                                               \
++    char buf[128];                                  \
++    snprintf(buf, sizeof(buf), "%d", *(int*)value); \
++    av_dict_set(options, dict_name, buf, 0);        \
++    found = 1;                                      \
++    }                                               \
++  }
++
+ #define PARAM_DICT_FLAG(name, dict_name)        \
+   {                                             \
+   if(!strcasecmp(name, key))                    \
+@@ -202,8 +213,15 @@
+   PARAM_INT("ff_max_b_frames",max_b_frames);
+   PARAM_FLOAT("ff_b_quant_factor",b_quant_factor);
+   PARAM_INT("ff_b_frame_strategy",b_frame_strategy);
++
++#if LIBAVCODEC_VERSION_MAJOR >= 55
++  PARAM_DICT_INT("ff_luma_elim_threshold","luma_elim_threshold");
++  PARAM_DICT_INT("ff_chroma_elim_threshold","chroma_elim_threshold");
++#else
+   PARAM_INT("ff_luma_elim_threshold",luma_elim_threshold);
+   PARAM_INT("ff_chroma_elim_threshold",chroma_elim_threshold);
++#endif
++
+   PARAM_INT("ff_strict_std_compliance",strict_std_compliance);
+   PARAM_QP2LAMBDA("ff_b_quant_offset",b_quant_offset);
+   PARAM_INT("ff_rc_min_rate",rc_min_rate);
+@@ -241,8 +259,15 @@
+   PARAM_QP2LAMBDA("ff_lmax", lmax);
+   PARAM_INT("ff_noise_reduction",noise_reduction);
+   PARAM_INT_SCALE("ff_rc_initial_buffer_occupancy",rc_initial_buffer_occupancy,1000);
++
++#if LIBAVCODEC_VERSION_MAJOR >= 55
++  PARAM_DICT_INT("ff_inter_threshold","inter_threshold");
++  PARAM_DICT_INT("ff_quantizer_noise_shaping","quantizer_noise_shaping");
++#else
+   PARAM_INT("ff_inter_threshold",inter_threshold);
+   PARAM_INT("ff_quantizer_noise_shaping",quantizer_noise_shaping);
++#endif
++
+   PARAM_INT("ff_thread_count",thread_count);
+   PARAM_INT("ff_me_threshold",me_threshold);
+   PARAM_INT("ff_mb_threshold",mb_threshold);
+@@ -272,8 +297,16 @@
+   PARAM_FLAG("ff_flag_bitexact",CODEC_FLAG_BITEXACT);
+   PARAM_FLAG("ff_flag_ac_pred",CODEC_FLAG_AC_PRED);
+   //  PARAM_FLAG("ff_flag_h263p_umv",CODEC_FLAG_H263P_UMV); // Unused
++
++#if LIBAVCODEC_VERSION_MAJOR >= 55
++  PARAM_DICT_FLAG("ff_flag_cbp_rd","cbp_rd");
++  PARAM_DICT_FLAG("ff_flag_qp_rd","qp_rd");
++  PARAM_DICT_FLAG("ff_flag2_strict_gop","strict_gop");
++#else
+   PARAM_FLAG("ff_flag_cbp_rd",CODEC_FLAG_CBP_RD);
+   PARAM_FLAG("ff_flag_qp_rd",CODEC_FLAG_QP_RD);
++  PARAM_FLAG2("ff_flag2_strict_gop",CODEC_FLAG2_STRICT_GOP);
++#endif
+ 
+ #if LIBAVCODEC_VERSION_MAJOR >= 54
+   PARAM_DICT_FLAG("ff_flag_h263p_aiv", "aiv");
+@@ -288,7 +321,6 @@
+   PARAM_FLAG("ff_flag_loop_filter",CODEC_FLAG_LOOP_FILTER);
+   PARAM_FLAG("ff_flag_closed_gop",CODEC_FLAG_CLOSED_GOP);
+   PARAM_FLAG2("ff_flag2_fast",CODEC_FLAG2_FAST);
+-  PARAM_FLAG2("ff_flag2_strict_gop",CODEC_FLAG2_STRICT_GOP);
+   PARAM_ENUM("ff_coder_type",coder_type,coder_type);
+   
+   }
+--- audio.c	2012/03/29 19:44:28	1.61
++++ audio.c	2013/04/21 21:54:58	1.62
+@@ -45,6 +45,11 @@
+ #define ENCODE_AUDIO 1
+ #endif
+ 
++#ifndef AVCODEC_MAX_AUDIO_FRAME_SIZE
++/* from libavcodec/avcodec.h dated Dec 23 2012 */
++#define AVCODEC_MAX_AUDIO_FRAME_SIZE 192000 // 1 second of 48khz 32bit audio
++#endif
++
+ /* The following code was ported from gmerlin_avdecoder (http://gmerlin.sourceforge.net) */
+ 
+ /* MPEG Audio header parsing code */
+--- video.c	2012/11/27 15:46:40	1.117
++++ video.c	2013/06/05 15:10:48	1.123
+@@ -469,7 +469,17 @@
+   codec->reinterpret_pix_fmt = codec->avctx->pix_fmt;
+ 
+   /* First we try codec-specific colormodel matching. */
+-  if(codec->decoder->id == CODEC_ID_DNXHD)
++  if(codec->is_imx && quicktime_match_32(vtrack->track->mdia.minf.stbl.stsd.table[0].format, "AVmp"))
++    {
++     if (lqt_ffmpeg_get_avid_yuv_range(vtrack->track) == AVID_FULL_YUV_RANGE)
++       {
++       vtrack->stream_cmodel = BC_YUVJ422P;
++       codec->reinterpret_pix_fmt = PIX_FMT_YUVJ422P;
++       *exact = 1;
++       return;
++       }
++    }
++  else if(codec->decoder->id == CODEC_ID_DNXHD)
+     {
+     /* FFMpeg supports PIX_FMT_YUV422P and PIX_FMT_YUV422P10 for DNxHD, which
+        we sometimes interpret as PIX_FMT_YUVJ422P and PIX_FMT_YUVJ422P10. */
+@@ -731,12 +741,13 @@
+         codec->y_offset = codec->avctx->height - trak->tkhd.track_height;
+         vtrack->height_extension = 0;
+     } else {
++        int stsd_height = trak->mdia.minf.stbl.stsd.table[0].height;
+         codec->y_offset = 0;
+-        if (vtrack->height_extension == codec->avctx->height - trak->tkhd.track_height) {
++        if (vtrack->height_extension == codec->avctx->height - stsd_height) {
+             return;
+         }
+ 
+-        vtrack->height_extension = codec->avctx->height - trak->tkhd.track_height;
++        vtrack->height_extension = codec->avctx->height - stsd_height;
+ 
+         /* Now we need a larger temp_frame */
+         if (vtrack->temp_frame) {
+@@ -952,8 +963,9 @@
+                                &got_pic,
+                                &codec->pkt) < 0)
+         {
+-        lqt_log(file, LQT_LOG_ERROR, LOG_DOMAIN, "Skipping corrupted frame");
+-        continue;
++        lqt_log(file, LQT_LOG_WARNING, LOG_DOMAIN, "Broken frame encountered");
++        codec->decoding_delay--;
++        return 1;
+         }
+ 
+ #if LIBAVCODEC_VERSION_MAJOR >= 54
+@@ -976,15 +988,16 @@
+                               codec->buffer,
+                               buffer_size) < 0)
+         {
+-        lqt_log(file, LQT_LOG_ERROR, LOG_DOMAIN, "Skipping corrupted frame");
+-        continue;
++        lqt_log(file, LQT_LOG_WARNING, LOG_DOMAIN, "Broken frame encountered");
++        codec->decoding_delay--;
++        return 1;
+         }
+ #endif      
+       if(got_pic)
+         codec->decoding_delay--;
+       
+       if((buffer_size <= 0) && !got_pic)
+-        return 0;
++        return 1;
+       }
+     }
+   
+@@ -1041,9 +1054,11 @@
+ 
+       vtrack->chroma_placement = LQT_CHROMA_PLACEMENT_MPEG2;
+       vtrack->ci.id = LQT_COMPRESSION_D10;
+-      vtrack->ci.bitrate = 
+-        (trak->mdia.minf.stbl.stsd.table[0].format[2] - '0') *
+-        10000000;
++      if (quicktime_match_32(trak->mdia.minf.stbl.stsd.table[0].format, "AVmp"))
++        vtrack->ci.bitrate = 50000000;
++      else
++        vtrack->ci.bitrate =
++          (trak->mdia.minf.stbl.stsd.table[0].format[2] - '0') * 10000000;
+       }
+     
+     if(codec->avctx->sample_aspect_ratio.num)
+@@ -1358,7 +1373,7 @@
+   codec->avctx->gop_size = 0;
+   codec->avctx->intra_dc_precision = 2;
+   codec->avctx->qmin = 1;
+-  codec->avctx->qmax = 3;
++  codec->avctx->qmax = codec->imx_bitrate == 30 ? 8 : 3;
+   codec->avctx->rtp_payload_size = 1; // ??
+   codec->avctx->rc_buffer_aggressivity = 0.25;
+   codec->avctx->flags |= CODEC_FLAG_INTERLACED_DCT|CODEC_FLAG_LOW_DELAY;
+@@ -1613,6 +1628,7 @@
+ #endif
+   int64_t pts;
+   int kf;
++  uint8_t* encoded_data;
+   
+   if(!row_pointers)
+     {
+@@ -1667,7 +1683,12 @@
+     codec->avctx->height = height;
+ 
+     lqt_ffmpeg_setup_encoding_colormodel(vtrack);
+-
++#if ENCODE_VIDEO2
++    codec->frame->width = width;
++    codec->frame->height = height;
++    codec->frame->format = codec->avctx->pix_fmt;
++#endif
++    
+     lqt_get_pixel_aspect(file, track, &pixel_width, &pixel_height);
+     codec->avctx->sample_aspect_ratio.num = pixel_width;
+     codec->avctx->sample_aspect_ratio.den = pixel_height;
+@@ -1878,6 +1899,7 @@
+   else
+     bytes_encoded = 0;
+   
++  encoded_data = pkt.data; // May be different from codec->buffer!
+   pts = pkt.pts * codec->encoding_pts_factor;
+   kf = !!(pkt.flags & AV_PKT_FLAG_KEY);
+     
+@@ -1891,6 +1913,7 @@
+   if(bytes_encoded < 0)
+     return -1;
+   
++  encoded_data = codec->buffer;
+   pts = codec->avctx->coded_frame->pts * encoding_pts_factor;
+   kf = codec->avctx->coded_frame->key_frame;
+   
+@@ -1916,9 +1939,13 @@
+                            kf);
+           
+     result = !quicktime_write_data(file, 
+-                                   codec->buffer, 
++                                   encoded_data,
+                                    bytes_encoded);
+ 
++#if ENCODE_VIDEO2
++    av_free_packet(&pkt);
++#endif
++
+     // Must go before lqt_write_frame_header() which increments vtrack->cur_chunk.
+     // cur_chunk is a frame number in storage order.
+     maybe_add_sdtp_entry(file, vtrack->cur_chunk, track);
+@@ -2346,7 +2373,8 @@
+           quicktime_match_32(compressor, "mx5p") ||
+           quicktime_match_32(compressor, "mx3n") ||
+           quicktime_match_32(compressor, "mx4n") ||
+-          quicktime_match_32(compressor, "mx5n"))
++          quicktime_match_32(compressor, "mx5n") ||
++          quicktime_match_32(compressor, "AVmp"))
+     {
+     vtrack->stream_cmodel = BC_YUV422P;
+     codec->is_imx = 1;

@@ -1,11 +1,12 @@
 Summary: 	Library for reading and writing Quicktime files
 Name: 		libquicktime
 Version:	1.2.4
-Release:	8%{?dist}
+Release:	9%{?dist}
 License:	LGPLv2+
 Group: 		System Environment/Libraries
 URL: 		http://libquicktime.sourceforge.net/
 Source0: 	http://downloads.sourceforge.net/libquicktime/%{name}-%{version}.tar.gz
+Patch0:         libquicktime-backport.patch
 BuildRoot: 	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:	libdv-devel
@@ -56,6 +57,7 @@ enhancements. This package contains development files for %{name}.
 
 %prep
 %setup -q
+%patch0 -p0
 
 
 # --------------------------------------------------------------------
@@ -129,6 +131,9 @@ rm -rf $RPM_BUILD_ROOT
 # --------------------------------------------------------------------
 
 %changelog
+* Tue Aug 20 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.2.4-9
+- Fix build with FFmpeg 2.0x
+
 * Thu Aug 15 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.2.4-8
 - Rebuilt for FFmpeg 2.0.x
 
