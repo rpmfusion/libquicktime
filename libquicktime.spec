@@ -1,13 +1,12 @@
 Summary: 	Library for reading and writing Quicktime files
 Name: 		libquicktime
 Version:	1.2.4
-Release:	9%{?dist}
+Release:	10%{?dist}
 License:	LGPLv2+
 Group: 		System Environment/Libraries
 URL: 		http://libquicktime.sourceforge.net/
 Source0: 	http://downloads.sourceforge.net/libquicktime/%{name}-%{version}.tar.gz
 Patch0:         libquicktime-backport.patch
-BuildRoot: 	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:	libdv-devel
 BuildRequires:	libpng-devel libjpeg-devel libGLU-devel
@@ -28,7 +27,8 @@ Group:		Applications/Multimedia
 %package devel
 Summary:	Development files for libquicktime
 Group:		Development/Libraries
-Requires:	%{name} = %{version}-%{release} zlib-devel pkgconfig
+Requires:	%{name}%{?_isa} = %{version}-%{release}
+Requires:	zlib-devel
 
 # --------------------------------------------------------------------
 
@@ -57,7 +57,7 @@ enhancements. This package contains development files for %{name}.
 
 %prep
 %setup -q
-%patch0 -p0
+%patch0 -p1
 
 
 # --------------------------------------------------------------------
@@ -82,7 +82,6 @@ make %{?_smp_mflags}
 # --------------------------------------------------------------------
 
 %install
-rm -rf $RPM_BUILD_ROOT
 make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p"
 find $RPM_BUILD_ROOT%{_libdir} -type f -a -name \*.la -exec rm {} \;
 
@@ -92,23 +91,16 @@ find $RPM_BUILD_ROOT%{_libdir} -type f -a -name \*.la -exec rm {} \;
 
 # --------------------------------------------------------------------
 
-%clean
-rm -rf $RPM_BUILD_ROOT
-
-# --------------------------------------------------------------------
-
 %post -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
 
 %files -f %{name}.lang
-%defattr(-,root,root,-)
 %doc COPYING README TODO
 %{_libdir}/%{name}*.so.*
 %dir %{_libdir}/%{name}
 %{_libdir}/%{name}/lqt_*.so
 
 %files utils
-%defattr(-,root,root,-)
 %{_bindir}/libquicktime_config
 %{_bindir}/lqt_transcode
 %{_bindir}/lqtplay
@@ -123,7 +115,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/lqtplay.1*
 
 %files devel
-%defattr(-,root,root,-)
 %{_includedir}/lqt/
 %{_libdir}/pkgconfig/libquicktime.pc
 %{_libdir}/%{name}*.so
@@ -131,6 +122,9 @@ rm -rf $RPM_BUILD_ROOT
 # --------------------------------------------------------------------
 
 %changelog
+* Mon Aug 26 2013 Hans de Goede <j.w.r.degoede@gmail.com> - 1.2.4-10
+- Really fix build with FFmpeg 2.0x
+
 * Tue Aug 20 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.2.4-9
 - Fix build with FFmpeg 2.0x
 

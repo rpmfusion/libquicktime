@@ -1,6 +1,22 @@
---- plugins/ffmpeg/params.c	2012/03/07 14:10:41	1.18
-+++ plugins/ffmpeg/params.c	2013/05/07 09:18:51	1.19
-@@ -101,6 +101,17 @@
+diff -up libquicktime-1.2.4/plugins/ffmpeg/audio.c.backport libquicktime-1.2.4/plugins/ffmpeg/audio.c
+--- libquicktime-1.2.4/plugins/ffmpeg/audio.c.backport	2012-03-29 21:44:28.000000000 +0200
++++ libquicktime-1.2.4/plugins/ffmpeg/audio.c	2013-08-26 12:14:47.099995207 +0200
+@@ -45,6 +45,11 @@
+ #define ENCODE_AUDIO 1
+ #endif
+ 
++#ifndef AVCODEC_MAX_AUDIO_FRAME_SIZE
++/* from libavcodec/avcodec.h dated Dec 23 2012 */
++#define AVCODEC_MAX_AUDIO_FRAME_SIZE 192000 // 1 second of 48khz 32bit audio
++#endif
++
+ /* The following code was ported from gmerlin_avdecoder (http://gmerlin.sourceforge.net) */
+ 
+ /* MPEG Audio header parsing code */
+diff -up libquicktime-1.2.4/plugins/ffmpeg/params.c.backport libquicktime-1.2.4/plugins/ffmpeg/params.c
+--- libquicktime-1.2.4/plugins/ffmpeg/params.c.backport	2012-03-07 15:10:41.000000000 +0100
++++ libquicktime-1.2.4/plugins/ffmpeg/params.c	2013-08-26 12:14:47.098995232 +0200
+@@ -101,6 +101,17 @@ typedef struct
      }                                           \
    }
  
@@ -18,7 +34,7 @@
  #define PARAM_DICT_FLAG(name, dict_name)        \
    {                                             \
    if(!strcasecmp(name, key))                    \
-@@ -202,8 +213,15 @@
+@@ -202,8 +213,15 @@ void lqt_ffmpeg_set_parameter(AVCodecCon
    PARAM_INT("ff_max_b_frames",max_b_frames);
    PARAM_FLOAT("ff_b_quant_factor",b_quant_factor);
    PARAM_INT("ff_b_frame_strategy",b_frame_strategy);
@@ -34,7 +50,7 @@
    PARAM_INT("ff_strict_std_compliance",strict_std_compliance);
    PARAM_QP2LAMBDA("ff_b_quant_offset",b_quant_offset);
    PARAM_INT("ff_rc_min_rate",rc_min_rate);
-@@ -241,8 +259,15 @@
+@@ -241,8 +259,15 @@ void lqt_ffmpeg_set_parameter(AVCodecCon
    PARAM_QP2LAMBDA("ff_lmax", lmax);
    PARAM_INT("ff_noise_reduction",noise_reduction);
    PARAM_INT_SCALE("ff_rc_initial_buffer_occupancy",rc_initial_buffer_occupancy,1000);
@@ -50,7 +66,7 @@
    PARAM_INT("ff_thread_count",thread_count);
    PARAM_INT("ff_me_threshold",me_threshold);
    PARAM_INT("ff_mb_threshold",mb_threshold);
-@@ -272,8 +297,16 @@
+@@ -272,8 +297,16 @@ void lqt_ffmpeg_set_parameter(AVCodecCon
    PARAM_FLAG("ff_flag_bitexact",CODEC_FLAG_BITEXACT);
    PARAM_FLAG("ff_flag_ac_pred",CODEC_FLAG_AC_PRED);
    //  PARAM_FLAG("ff_flag_h263p_umv",CODEC_FLAG_H263P_UMV); // Unused
@@ -67,7 +83,7 @@
  
  #if LIBAVCODEC_VERSION_MAJOR >= 54
    PARAM_DICT_FLAG("ff_flag_h263p_aiv", "aiv");
-@@ -288,7 +321,6 @@
+@@ -288,7 +321,6 @@ void lqt_ffmpeg_set_parameter(AVCodecCon
    PARAM_FLAG("ff_flag_loop_filter",CODEC_FLAG_LOOP_FILTER);
    PARAM_FLAG("ff_flag_closed_gop",CODEC_FLAG_CLOSED_GOP);
    PARAM_FLAG2("ff_flag2_fast",CODEC_FLAG2_FAST);
@@ -75,23 +91,10 @@
    PARAM_ENUM("ff_coder_type",coder_type,coder_type);
    
    }
---- plugins/ffmpeg/audio.c	2012/03/29 19:44:28	1.61
-+++ plugins/ffmpeg/audio.c	2013/04/21 21:54:58	1.62
-@@ -45,6 +45,11 @@
- #define ENCODE_AUDIO 1
- #endif
- 
-+#ifndef AVCODEC_MAX_AUDIO_FRAME_SIZE
-+/* from libavcodec/avcodec.h dated Dec 23 2012 */
-+#define AVCODEC_MAX_AUDIO_FRAME_SIZE 192000 // 1 second of 48khz 32bit audio
-+#endif
-+
- /* The following code was ported from gmerlin_avdecoder (http://gmerlin.sourceforge.net) */
- 
- /* MPEG Audio header parsing code */
---- plugins/ffmpeg/video.c	2012/11/27 15:46:40	1.117
-+++ plugins/ffmpeg/video.c	2013/06/05 15:10:48	1.123
-@@ -469,7 +469,17 @@
+diff -up libquicktime-1.2.4/plugins/ffmpeg/video.c.backport libquicktime-1.2.4/plugins/ffmpeg/video.c
+--- libquicktime-1.2.4/plugins/ffmpeg/video.c.backport	2012-02-25 20:46:56.000000000 +0100
++++ libquicktime-1.2.4/plugins/ffmpeg/video.c	2013-08-26 12:21:24.272962173 +0200
+@@ -400,7 +400,17 @@ static void lqt_ffmpeg_setup_decoding_co
    codec->reinterpret_pix_fmt = codec->avctx->pix_fmt;
  
    /* First we try codec-specific colormodel matching. */
@@ -110,7 +113,7 @@
      {
      /* FFMpeg supports PIX_FMT_YUV422P and PIX_FMT_YUV422P10 for DNxHD, which
         we sometimes interpret as PIX_FMT_YUVJ422P and PIX_FMT_YUVJ422P10. */
-@@ -731,12 +741,13 @@
+@@ -662,12 +672,13 @@ static void lqt_ffmpeg_imx_setup_decodin
          codec->y_offset = codec->avctx->height - trak->tkhd.track_height;
          vtrack->height_extension = 0;
      } else {
@@ -126,7 +129,7 @@
  
          /* Now we need a larger temp_frame */
          if (vtrack->temp_frame) {
-@@ -952,8 +963,9 @@
+@@ -883,8 +894,9 @@ static int lqt_ffmpeg_decode_video(quick
                                 &got_pic,
                                 &codec->pkt) < 0)
          {
@@ -138,7 +141,7 @@
          }
  
  #if LIBAVCODEC_VERSION_MAJOR >= 54
-@@ -976,15 +988,16 @@
+@@ -907,15 +919,16 @@ static int lqt_ffmpeg_decode_video(quick
                                codec->buffer,
                                buffer_size) < 0)
          {
@@ -158,7 +161,7 @@
        }
      }
    
-@@ -1041,9 +1054,11 @@
+@@ -972,9 +985,11 @@ static int lqt_ffmpeg_decode_video(quick
  
        vtrack->chroma_placement = LQT_CHROMA_PLACEMENT_MPEG2;
        vtrack->ci.id = LQT_COMPRESSION_D10;
@@ -173,7 +176,7 @@
        }
      
      if(codec->avctx->sample_aspect_ratio.num)
-@@ -1358,7 +1373,7 @@
+@@ -1138,7 +1153,7 @@ static int init_imx_encoder(quicktime_t
    codec->avctx->gop_size = 0;
    codec->avctx->intra_dc_precision = 2;
    codec->avctx->qmin = 1;
@@ -182,7 +185,7 @@
    codec->avctx->rtp_payload_size = 1; // ??
    codec->avctx->rc_buffer_aggressivity = 0.25;
    codec->avctx->flags |= CODEC_FLAG_INTERLACED_DCT|CODEC_FLAG_LOW_DELAY;
-@@ -1613,6 +1628,7 @@
+@@ -1294,6 +1309,7 @@ static int lqt_ffmpeg_encode_video(quick
  #endif
    int64_t pts;
    int kf;
@@ -190,7 +193,7 @@
    
    if(!row_pointers)
      {
-@@ -1667,7 +1683,12 @@
+@@ -1335,7 +1351,12 @@ static int lqt_ffmpeg_encode_video(quick
      codec->avctx->height = height;
  
      lqt_ffmpeg_setup_encoding_colormodel(vtrack);
@@ -204,23 +207,23 @@
      lqt_get_pixel_aspect(file, track, &pixel_width, &pixel_height);
      codec->avctx->sample_aspect_ratio.num = pixel_width;
      codec->avctx->sample_aspect_ratio.den = pixel_height;
-@@ -1878,6 +1899,7 @@
+@@ -1540,6 +1561,7 @@ static int lqt_ffmpeg_encode_video(quick
    else
      bytes_encoded = 0;
    
 +  encoded_data = pkt.data; // May be different from codec->buffer!
-   pts = pkt.pts * codec->encoding_pts_factor;
+   pts = pkt.pts;
    kf = !!(pkt.flags & AV_PKT_FLAG_KEY);
      
-@@ -1891,6 +1913,7 @@
+@@ -1553,6 +1575,7 @@ static int lqt_ffmpeg_encode_video(quick
    if(bytes_encoded < 0)
      return -1;
    
 +  encoded_data = codec->buffer;
-   pts = codec->avctx->coded_frame->pts * encoding_pts_factor;
+   pts = codec->avctx->coded_frame->pts;
    kf = codec->avctx->coded_frame->key_frame;
    
-@@ -1916,9 +1939,13 @@
+@@ -1575,9 +1598,13 @@ static int lqt_ffmpeg_encode_video(quick
                             kf);
            
      result = !quicktime_write_data(file, 
@@ -232,10 +235,10 @@
 +    av_free_packet(&pkt);
 +#endif
 +
-     // Must go before lqt_write_frame_header() which increments vtrack->cur_chunk.
-     // cur_chunk is a frame number in storage order.
-     maybe_add_sdtp_entry(file, vtrack->cur_chunk, track);
-@@ -2346,7 +2373,8 @@
+     lqt_write_frame_footer(file, track);
+           
+     /* Write stats */
+@@ -1959,7 +1986,8 @@ void quicktime_init_video_codec_ffmpeg(q
            quicktime_match_32(compressor, "mx5p") ||
            quicktime_match_32(compressor, "mx3n") ||
            quicktime_match_32(compressor, "mx4n") ||
