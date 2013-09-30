@@ -1,7 +1,7 @@
 Summary: 	Library for reading and writing Quicktime files
 Name: 		libquicktime
 Version:	1.2.4
-Release:	10%{?dist}
+Release:	11%{?dist}
 License:	LGPLv2+
 Group: 		System Environment/Libraries
 URL: 		http://libquicktime.sourceforge.net/
@@ -122,6 +122,9 @@ find $RPM_BUILD_ROOT%{_libdir} -type f -a -name \*.la -exec rm {} \;
 # --------------------------------------------------------------------
 
 %changelog
+* Mon Sep 30 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.2.4-11
+- Rebuilt
+
 * Mon Aug 26 2013 Hans de Goede <j.w.r.degoede@gmail.com> - 1.2.4-10
 - Really fix build with FFmpeg 2.0x
 
