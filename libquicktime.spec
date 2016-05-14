@@ -8,6 +8,7 @@ URL: 		http://libquicktime.sourceforge.net/
 Source0: 	http://downloads.sourceforge.net/libquicktime/%{name}-%{version}.tar.gz
 Patch0:         libquicktime-backport.patch
 Patch1:         libav10.patch
+Patch2:         ffmpeg_2.9.patch
 
 BuildRequires:	libdv-devel
 BuildRequires:	libpng-devel libjpeg-devel libGLU-devel
@@ -60,6 +61,7 @@ enhancements. This package contains development files for %{name}.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 
 # --------------------------------------------------------------------
