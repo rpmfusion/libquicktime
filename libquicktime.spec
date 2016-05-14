@@ -7,6 +7,7 @@ Group: 		System Environment/Libraries
 URL: 		http://libquicktime.sourceforge.net/
 Source0: 	http://downloads.sourceforge.net/libquicktime/%{name}-%{version}.tar.gz
 Patch0:         libquicktime-backport.patch
+Patch1:         libav10.patch
 
 BuildRequires:	libdv-devel
 BuildRequires:	libpng-devel libjpeg-devel libGLU-devel
@@ -58,6 +59,7 @@ enhancements. This package contains development files for %{name}.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 
 # --------------------------------------------------------------------
