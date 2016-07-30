@@ -1,7 +1,7 @@
 Summary: 	Library for reading and writing Quicktime files
 Name: 		libquicktime
 Version:	1.2.4
-Release:	21%{?dist}
+Release:	22%{?dist}
 License:	LGPLv2+
 Group: 		System Environment/Libraries
 URL: 		http://libquicktime.sourceforge.net/
@@ -126,6 +126,9 @@ find $RPM_BUILD_ROOT%{_libdir} -type f -a -name \*.la -exec rm {} \;
 # --------------------------------------------------------------------
 
 %changelog
+* Sat Jul 30 2016 Julian Sikorski <belegdol@fedoraproject.org> - 1.2.4-22
+- Rebuilt for ffmpeg-3.1.1
+
 * Sat May 14 2016 Michael Kuhn <suraia@ikkoku.de> - 1.2.4-21
 - Add patches for libav 10 and ffmpeg 3.0.
 
