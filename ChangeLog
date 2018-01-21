@@ -1,0 +1,583 @@
+commit 4d451774b89fbdd2f53204f92b71837af7b06761
+Author: gmerlin <gmerlin>
+Date:   Tue Sep 26 11:46:13 2017 +0000
+
+    * Support for version 1 of the mdhd atom (patch by Erik Johansson)
+
+commit f32646eb76a6d2b2768442bd78afb65e7cb5867e
+Author: gmerlin <gmerlin>
+Date:   Tue Jul 18 14:15:30 2017 +0000
+
+    * Applied udta.patch
+
+commit bfe392e31eea480d7c4507663395ca483a5abb67
+Author: gmerlin <gmerlin>
+Date:   Fri Jun 23 13:46:41 2017 +0000
+
+    * Fixed CVE-2017-9125
+
+commit 3a7b5017e5d803dbe82eddd08a2804be3fda0c5d
+Author: gmerlin <gmerlin>
+Date:   Fri Jun 23 13:00:36 2017 +0000
+
+    * Fixed allocation-failed-in_quicktime_read_ftyp and
+      allocation-failed-in_quicktime_read_info
+
+commit bf6e842131fb013a087df6d7c5069a7d3646b199
+Author: gmerlin <gmerlin>
+Date:   Mon Mar 6 10:16:11 2017 +0000
+
+    * Fix security hole
+
+commit 2ea10548de96c3379da6264e6ca21ee3cdc06f0c
+Author: gmerlin <gmerlin>
+Date:   Tue Apr 26 18:04:01 2016 +0000
+
+    * Security fix
+
+commit c166ad0b5d00265d6a0a708ed1d39772bfaa8a91
+Author: gmerlin <gmerlin>
+Date:   Tue Apr 26 17:51:07 2016 +0000
+
+    * Fix the types of some integer i/o functions (patch by Erik Johansson)
+
+commit 0b908b27ac3acd25a73f72a25ac1b6ffc86d0567
+Author: gmerlin <gmerlin>
+Date:   Tue Apr 26 17:47:30 2016 +0000
+
+    * Fix issue with stps-atom and packetindex (patch by Erik Johansson)
+
+commit 1698b8b3f46c46a46e5efb856e19ec952b4f8b92
+Author: sms00 <sms00>
+Date:   Sun Dec 6 18:49:50 2015 +0000
+
+    Remove unused functions.
+
+commit 18487486657ba752bf38656509e719b5c5b2c51b
+Author: sms00 <sms00>
+Date:   Sat Dec 5 18:52:43 2015 +0000
+
+    ffmpeg's neverending api changes - they went AV crazy (again/still).  Needed to add AV_ or AV in front of items used from avcodec
+
+commit 12a6d2878e63d2c602e6f00612450fa8e377f322
+Author: gmerlin <gmerlin>
+Date:   Wed Oct 21 15:38:33 2015 +0000
+
+    * Fix Integer over flow in stts.c and quicktime_stsdtable_read_timecode
+      patch by Erik Johansson
+
+commit f224f75ee4a33c565ddfb2db82c8ea3d38bbb517
+Author: gmerlin <gmerlin>
+Date:   Fri Mar 20 10:00:56 2015 +0000
+
+    * Fix stsd atom termination (patch by Balázs Oroszi)
+
+commit 3407dafde9dc28b796059f5932b0be097626fd22
+Author: sms00 <sms00>
+Date:   Fri Mar 6 20:40:23 2015 +0000
+
+    annotate the new additions for rear surround and matrixed (Prologic) channels
+
+commit d20fd20cb0f274a0f34371583e745f23021c20f1
+Author: sms00 <sms00>
+Date:   Fri Mar 6 15:14:09 2015 +0000
+
+    Add mappings from 'chan atom' to lqt for: rear surround left/right, mono and left/right total (prologic matrix'd)
+
+commit 531270f7db23760e6ebbd6cab493550b4ca1c7fd
+Author: gmerlin <gmerlin>
+Date:   Tue Feb 3 15:45:59 2015 +0000
+
+    * Read reserved gmin bits (patch by Derek Chow)
+
+commit 8e22e547d68b048e2936cdaab792a812e4b53941
+Author: sms00 <sms00>
+Date:   Mon Nov 3 20:48:22 2014 +0000
+
+    Prevent crash if audio Decoder doesn't exist - example is 'drms'
+    [codecs] Warning: Could not find audio Decoder for fourcc drms
+    for soundtracks in iTunes movies would crash qtinfo.
+
+commit 28412a2a639b5ff2078f52c253c8c23810a11bbd
+Author: sms00 <sms00>
+Date:   Fri Oct 24 15:14:27 2014 +0000
+
+    returning 0 from the decode initialization causes lqt_ensure_stream_cmodel_decode to not fill in the color model.
+    
+    qtinfo would print "Native colormodel: Undefined" before.  Now qtinfo prints
+    "Native colormodel:  YUV 4:2:2 packed (YUY2)"
+
+commit 54513401b82b6c4dd5f2484420933ff71862e5f2
+Author: gmerlin <gmerlin>
+Date:   Thu Oct 23 15:12:09 2014 +0000
+
+    * Fixed stts generation
+
+commit 06cc79271551b43551d13fa27175ada88461126d
+Author: gmerlin <gmerlin>
+Date:   Thu May 1 22:54:30 2014 +0000
+
+    * More cleanups
+
+commit 2a9ca087b733aa4922d110c99b28e5c3c3227798
+Author: gmerlin <gmerlin>
+Date:   Thu May 1 21:15:34 2014 +0000
+
+    * Remove quicktime_chunk_to_offset
+
+commit 5d2cf083a9e2f70b88403984ed9a3ed060c43953
+Author: gmerlin <gmerlin>
+Date:   Thu May 1 18:58:38 2014 +0000
+
+    * More cleanups
+
+commit 7819adf04207d52757237ffec7f87ebb8f6f84a4
+Author: gmerlin <gmerlin>
+Date:   Thu May 1 18:54:00 2014 +0000
+
+    * Let the text tracks also use the packet index
+    * Removed lots of old cruft
+
+commit e3b9f0fe2691f1bf491c94821e5c92b78d1524ba
+Author: gmerlin <gmerlin>
+Date:   Thu May 1 12:58:16 2014 +0000
+
+    * Move most video specific functions to video.c
+
+commit 9cb33b4813cd8fb1743b7a8e00299dfef3df703a
+Author: gmerlin <gmerlin>
+Date:   Thu May 1 12:07:28 2014 +0000
+
+    * Removed old decode_audio function
+
+commit 1c63349eeedbfc8de05f71513cb3d729983cdd5a
+Author: gmerlin <gmerlin>
+Date:   Tue Apr 29 22:21:55 2014 +0000
+
+    * Converted core and all codecs for new Audio demuxing API
+
+commit 223e3c392d29ac8f59a3d2533ce08cfb85226865
+Author: gmerlin <gmerlin>
+Date:   Sun Apr 27 22:59:54 2014 +0000
+
+    * Introduce quicktime_trak_read_packet()
+    * New codec function: decode_audio_packet() which decodes just one
+      single packet and leaves buffering and seeking to the core
+    * Audio seeking is not adapted yet but will be ASAP, so it might not work
+      ATM
+
+commit 73b6a91c7f589e0ff67e9861fa24e5b2c3b6d3fe
+Author: gmerlin <gmerlin>
+Date:   Fri Apr 25 21:55:28 2014 +0000
+
+    * Remove old ffmpeg cruft and increase the minimum lavc version
+
+commit d92d1917f06e877d46a5a61159d6228e02f92967
+Author: gmerlin <gmerlin>
+Date:   Wed Apr 23 22:24:04 2014 +0000
+
+    * New decoding API works somehow
+
+commit 1a6fbf08be64eca0842095cf7005f475c51e40cb
+Author: gmerlin <gmerlin>
+Date:   Wed Apr 23 20:45:45 2014 +0000
+
+    * More API conversions
+
+commit 6e91b8b1cb9255cdefbf5462bc2b6288f4b6b216
+Author: sms00 <sms00>
+Date:   Wed Apr 23 20:35:32 2014 +0000
+
+    Accidentally commented AC_LANG_SOURCE(C) out - it causes errors with older
+    versions of libtool (used on OSX 10.6.8) but other folks perhaps need it.
+    libquicktime build fine with or without it - not sure why it was added.
+
+commit 766fd107dbe03cfad9b5d03ea1803802214d0729
+Author: sms00 <sms00>
+Date:   Wed Apr 23 20:33:04 2014 +0000
+
+    lqt_packet_index_get_next_display_frame needs to be visible/extern'd on OSX 10.6.8 to avoid and undefined error from lqt_ffmpeg plugin:
+    qtinfo Disc1.mov
+    [codecinfo] Error: dlopen failed for /usr/local/lib/libquicktime/lqt_ffmpeg.so: dlopen(/usr/local/lib/libquicktime/lqt_ffmpeg.so, 2): Symbol not found: _lqt_packet_index_get_next_display_frame
+      Referenced from: /usr/local/lib/libquicktime/lqt_ffmpeg.so
+
+commit 4ed5f10623b438f959697b03a56ec94a76b25271
+Author: gmerlin <gmerlin>
+Date:   Wed Apr 23 20:31:17 2014 +0000
+
+    * Converted more codecs
+
+commit 4ee0b65979fa2a405727f8ce0f6372c5e3767f91
+Author: gmerlin <gmerlin>
+Date:   Tue Apr 22 19:14:48 2014 +0000
+
+    * Convert more codecs for the new API
+
+commit f12c0601b1fd6edca13cdf2d96987d569dd7682a
+Author: gmerlin <gmerlin>
+Date:   Mon Apr 21 06:39:17 2014 +0000
+
+    * More updates for the new demuxing API
+
+commit bd67b98a7d0f7f53a22c8467b765c5e181358ab1
+Author: gmerlin <gmerlin>
+Date:   Fri Apr 18 12:30:19 2014 +0000
+
+    * Converted pcm and ima4
+
+commit e987e5901de61ef0f0f784eb4fc83c5eeca498b9
+Author: gmerlin <gmerlin>
+Date:   Fri Apr 18 00:55:12 2014 +0000
+
+    * Make the pcm codecs use the packet index
+
+commit d6b9f1c25189302b1fce2e0a69e0a8538b82752b
+Author: gmerlin <gmerlin>
+Date:   Wed Apr 16 22:20:52 2014 +0000
+
+    * Use new demuxing API for reading video packets
+
+commit a7e10e7b8a6a16939c2b5f6bd33f010ec42942d7
+Author: gmerlin <gmerlin>
+Date:   Tue Apr 15 18:46:42 2014 +0000
+
+    * Export the stsd ID in the packet index
+
+commit 37553b919395e48b5db643da29667bb094f5dbdc
+Author: gmerlin <gmerlin>
+Date:   Fri Apr 11 22:15:09 2014 +0000
+
+    * generate packet index for audio tracks also
+
+commit dfcacedaafb89817fde58f48e4e44890274e0778
+Author: gmerlin <gmerlin>
+Date:   Sun Apr 6 22:35:50 2014 +0000
+
+    * Generate the packet index for Quicktime and AVI video streams
+
+commit 2ef27c3d2bfaf642622734176e25a005a20a92d1
+Author: gmerlin <gmerlin>
+Date:   Tue Apr 1 19:57:30 2014 +0000
+
+    * Introduce a runtime generated packet index for more efficient
+      demultiplexing
+
+commit 0c25e15dc829e69c9f9eb406f856ec0721dd6aaa
+Author: gmerlin <gmerlin>
+Date:   Tue Mar 25 16:57:33 2014 +0000
+
+    * Update
+
+commit edb79560e0d5c895e23ea048a8444b521a039547
+Author: gmerlin <gmerlin>
+Date:   Fri Mar 21 13:30:41 2014 +0000
+
+    * Initialize tcmi flags to zero as recommended
+
+commit fee30f795236298e8c9548e09da99c3fd7c446de
+Author: gmerlin <gmerlin>
+Date:   Fri Mar 21 11:58:28 2014 +0000
+
+    * Skip null blocks patch by Erik Johansson
+
+commit f4a7b6aded4f44bf6d9896a5e5df4d1a2c875e29
+Author: gmerlin <gmerlin>
+Date:   Mon Dec 9 16:03:40 2013 +0000
+
+    * Better price calculation for colormodel conversions
+      (patch by Erik Johansson)
+
+commit 0ce3b70a3858eac940aae4e47b1ea3a0e5f8c237
+Author: gmerlin <gmerlin>
+Date:   Fri Dec 6 15:59:34 2013 +0000
+
+    * yuvj420 -> yuvj422 Conversion patch by Erik Johansson
+
+commit 78f4862934b495e7bbaf8452ec247630a6f2bf89
+Author: gmerlin <gmerlin>
+Date:   Wed Nov 27 17:15:31 2013 +0000
+
+    * Flush more delayed frames (patch by Erik Johansson)
+
+commit 0bede77253913493c52b76a1e3d793ce92130326
+Author: gmerlin <gmerlin>
+Date:   Wed Nov 27 17:09:30 2013 +0000
+
+    * Mingw fixes for utf-8 and 64 bit stat (patch by Derek Chow)
+
+commit 4773c54f5de8ab896cf329d160ec5f6476e37f37
+Author: gmerlin <gmerlin>
+Date:   Thu Nov 21 15:10:54 2013 +0000
+
+    * More mingw patches by Derek Chow
+
+commit b292819f366e0446afcb3c2428590acfd63616fe
+Author: gmerlin <gmerlin>
+Date:   Tue Nov 19 16:46:23 2013 +0000
+
+    * mingw patch by Derek Chow
+
+commit 8b73d511668e71c3c1f6c57f629df556593b7fd1
+Author: gmerlin <gmerlin>
+Date:   Tue Oct 29 08:57:05 2013 +0000
+
+    * Set LDFLAGS for modules in configure.ac
+    * Fix some crashes (patch by Paul J. Taggart)
+
+commit 400e1e4e03f79bd2bf362ecf7fdd133d5075968f
+Author: sms00 <sms00>
+Date:   Tue Oct 29 03:02:17 2013 +0000
+
+    Older versions of autoconf (2.61) sometimes need [] around the 'else' in AC_CHECK_FUNCS to avoid an error
+    ./configure: line 24695: syntax error: unexpected end of file
+
+commit f317d4ce065a61a95c28f70765fa4f740d875867
+Author: gmerlin <gmerlin>
+Date:   Mon Oct 7 14:38:02 2013 +0000
+
+    * Add -no-undefined to libtool flags
+    * Simplified *localtime* ifdefs
+
+commit 6dd6c14f7eac41b62f4fb6a7ad64ac435828f968
+Author: gmerlin <gmerlin>
+Date:   Fri Sep 27 13:46:43 2013 +0000
+
+    * mingw patches by Derek Chow
+
+commit 2afeae7edc5d45c6b835fa5bcf7b821b5c72b212
+Author: gmerlin <gmerlin>
+Date:   Fri Sep 27 13:23:39 2013 +0000
+
+    * bzero, bcopy -> memset, memcpy
+
+commit 3d30c039370c7d9893b2990e006641f6daea565a
+Author: gmerlin <gmerlin>
+Date:   Fri Jun 7 14:36:20 2013 +0000
+
+    * Prores codec name patch by Boris Maksalov
+
+commit 823d5938a5bd0996882ea467ab25015f79958540
+Author: gmerlin <gmerlin>
+Date:   Wed Jun 5 15:10:48 2013 +0000
+
+    * Another API update patch by Erik Johansson
+
+commit ac79fc2ee5361bbb49a6fb337d0f23e02fdf7fdf
+Author: gmerlin <gmerlin>
+Date:   Tue May 21 13:49:26 2013 +0000
+
+    * AVPacket handling patch by Joseph Artsimovich
+
+commit 220a1bd3cf1502fdb755be3a3771575f484b3e8b
+Author: gmerlin <gmerlin>
+Date:   Tue May 21 13:42:20 2013 +0000
+
+    * 8 bit sowt seems to be signed
+
+commit 8d832fabb420fc42edacd914a560943ae9f069ba
+Author: gmerlin <gmerlin>
+Date:   Tue May 7 09:30:01 2013 +0000
+
+    * Fix potential crash
+
+commit f23facd94acd3ff0c3be4efd6de82f69dd44fe87
+Author: gmerlin <gmerlin>
+Date:   Tue May 7 09:18:51 2013 +0000
+
+    * Latest ffmpeg patch by Joseph Artsimovich
+
+commit ab32b84dd1e6e5b100d22aeeffbafe67e02edb31
+Author: gmerlin <gmerlin>
+Date:   Mon Apr 29 08:30:54 2013 +0000
+
+    * Prime sample support patch by Erik Johansson
+
+commit eb0458dd42f28b094e2a4695758865109fb73669
+Author: gmerlin <gmerlin>
+Date:   Tue Apr 23 15:11:53 2013 +0000
+
+    * avid imx fix by Joseph Artsimovich
+
+commit 0b8adf13d39b8ba3717a6e8c86d6d59f3d68f711
+Author: gmerlin <gmerlin>
+Date:   Tue Apr 23 15:11:05 2013 +0000
+
+    * autotools fix proposed by Christian Ebert
+
+commit 44662bf4f5e1364140f08b26126f097986475435
+Author: sms00 <sms00>
+Date:   Sun Apr 21 21:54:58 2013 +0000
+
+    ffmpeg/libavcodec breakage again/still - define AVCODEC_MAX_AUDIO_FRAME_SIZE
+    using value from libavcodec/avcodec.h dated Dec 23 2012
+
+commit 2158ea2e436cc5d635215078e6bcd7ec8aa7872c
+Author: gmerlin <gmerlin>
+Date:   Fri Apr 19 16:59:59 2013 +0000
+
+    * Add avid IMX fourccs (patch by Joseph Artsimovich)
+
+commit 55f5d4523a96cdf2a45a3af81b8d251337c5d020
+Author: gmerlin <gmerlin>
+Date:   Tue Mar 19 10:29:58 2013 +0000
+
+    * libpng16 support patch by pgajdos [at] suse.cz
+
+commit 25ebfb6ae1a88586469d7524a82093ead13a3043
+Author: gmerlin <gmerlin>
+Date:   Tue Feb 12 17:34:23 2013 +0000
+
+    * Fix qmax for imx30 (patch by Joseph Artsimovich)
+
+commit d001f6e756cd9134b878d870686241fb4bddf4e9
+Author: gmerlin <gmerlin>
+Date:   Tue Feb 12 17:32:53 2013 +0000
+
+    * Better handling of broken frames (patch by Joseph Artsimovich)
+
+commit d0388b8915dd34fb3cb2e76978b1d9df6a5dc436
+Author: stscheff <stscheff>
+Date:   Sat Jan 12 13:02:30 2013 +0000
+
+    force movie timescale to qtvr timescale
+
+commit b31b4db0497e37aa07320022a71ea2544ea24b44
+Author: gmerlin <gmerlin>
+Date:   Fri Dec 21 13:37:09 2012 +0000
+
+    * Compatibility patch
+
+commit a63f3af8467bbd4fc6bb6384d0ca5902c2c46411
+Author: gmerlin <gmerlin>
+Date:   Tue Nov 27 15:52:47 2012 +0000
+
+    * Change vendor back to appl to work around broken decoders
+
+commit 812fb9a441592915a416dde10bf559b7162f4f51
+Author: gmerlin <gmerlin>
+Date:   Tue Nov 27 15:46:40 2012 +0000
+
+    * Fix pts handling for some codecs, which rely on a constant framerate
+
+commit b4691242da7909b3643e50c78dc03317a2c9c1ef
+Author: gmerlin <gmerlin>
+Date:   Tue Nov 20 09:51:21 2012 +0000
+
+    * Forgot this file
+
+commit 3df140a62c0ea17307ea83b5fdae454d3df95ed5
+Author: gmerlin <gmerlin>
+Date:   Mon Nov 19 16:59:29 2012 +0000
+
+    * sdtp support patch by Joseph Artsimovich
+
+commit 1436e47438e8d4c40ade2fc1b98eddfef6f1e452
+Author: gmerlin <gmerlin>
+Date:   Mon Nov 19 16:50:48 2012 +0000
+
+    * uninitialized read patch by Joseph Artsimovich
+    * Updated schroedinger settings extraction
+
+commit b68705b23f206513220c625fc2b35241c6e62d9f
+Author: gmerlin <gmerlin>
+Date:   Fri Nov 9 10:24:12 2012 +0000
+
+    * Let the codec initialization know if we are en- or decoding
+      (patch by Joseph Artsimovich)
+
+commit dbf163d577d78f974356ab2cad33fdf9ac3eaae6
+Author: gmerlin <gmerlin>
+Date:   Thu Nov 8 12:53:45 2012 +0000
+
+    * Fixed YUV10 to RGB888 conversion
+
+commit 6bb0b58264504ace379917be456f348f287dbaf1
+Author: gmerlin <gmerlin>
+Date:   Tue Nov 6 11:07:01 2012 +0000
+
+    * Use codec specific defaults
+
+commit bdacab2a502311ac858923a54347af727af3f07f
+Author: gmerlin <gmerlin>
+Date:   Mon Oct 8 18:50:15 2012 +0000
+
+    * Fix crash
+
+commit a5a04a249493c2cb44c18024e84f5dcce73fb910
+Author: gmerlin <gmerlin>
+Date:   Mon Sep 24 09:17:25 2012 +0000
+
+    * Gop size patch by Joseph Artsimovich
+
+commit d5aad041e938f4484a7e5d034043834569e2545c
+Author: gmerlin <gmerlin>
+Date:   Fri Sep 14 21:12:57 2012 +0000
+
+    * Simplify seeking and consider B-frames used as references
+
+commit 06ff9b12330b77e8aad95da5d0b4997d3eb1823f
+Author: gmerlin <gmerlin>
+Date:   Tue Aug 7 17:36:11 2012 +0000
+
+    * ProRes support patch by Boris Maksalov
+
+commit 4d45f43a2ea5c598be9b700789b9f03fc88db806
+Author: gmerlin <gmerlin>
+Date:   Thu Jun 28 14:30:21 2012 +0000
+
+    * Support thread_count for more ffmpeg codecs (patch by Joseph Artsimovich)
+
+commit b9f7bf8f201208abe7c992370b19e1659246e862
+Author: gmerlin <gmerlin>
+Date:   Thu Jun 28 14:28:40 2012 +0000
+
+    * Delay the colormodel detection such that it happens after setting the
+      parameters
+
+commit a6dfc1c04cc6a9236613a26c1b9e21bbbc385af3
+Author: gmerlin <gmerlin>
+Date:   Tue Jun 12 16:30:57 2012 +0000
+
+    * Works also for mp4
+
+commit adb2dc5b7305d0dfc9a65ea0d8fc4d914f2afac7
+Author: gmerlin <gmerlin>
+Date:   Tue Jun 12 16:27:58 2012 +0000
+
+    * Unified seeking patch by Joseph Artsimovich
+
+commit cdb2262a36c518b7b1d10b8a4c50e6e3a8131a92
+Author: gmerlin <gmerlin>
+Date:   Fri Jun 8 13:56:39 2012 +0000
+
+    * stps support by Joseph Artsimovich
+
+commit 962af75c8bae8493fd5f8aef3afac041c907b041
+Author: gmerlin <gmerlin>
+Date:   Fri Jun 8 13:56:13 2012 +0000
+
+    * stps and xdcam support patch by Joseph Artsimovich
+
+commit 7fac464e1d9220ace2a3f93d4cee3108cd62a0eb
+Author: gmerlin <gmerlin>
+Date:   Fri Jun 8 12:25:42 2012 +0000
+
+    * Reverted last patch
+
+commit 59838700eec97a2e07d124b06be80b3c5b09001f
+Author: gmerlin <gmerlin>
+Date:   Fri Jun 8 12:12:47 2012 +0000
+
+    * stps support patch by Joseph Artsimovich
+
+commit f36768d87314b85c7e84e6b8bfcdf6a6bedfd77c
+Author: gmerlin <gmerlin>
+Date:   Thu May 24 16:01:13 2012 +0000
+
+    * Speed up seeking in long GOP video (patch by Joseph Artsimovich)
+
+commit e6294ee27c9a616f5ea8ce5b5778f0c3e77d258d
+Author: gmerlin <gmerlin>
+Date:   Fri Apr 27 15:19:52 2012 +0000
+
+    * Get rid of PATH_MAX in the library

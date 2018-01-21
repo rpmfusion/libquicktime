@@ -1,14 +1,18 @@
+%define vers_string 1.2.4-93-g4d45177
+%define rel_string .20170926.93.g4d45177
+%define githash 4d451774b89fbdd2f53204f92b71837af7b06761
+%define shorthash %(c=%{githash}; echo ${c:0:10})
+
+
 Summary: 	Library for reading and writing Quicktime files
 Name: 		libquicktime
 Version:	1.2.4
-Release:	27%{?dist}
+Release:	28%{?rel_string}%{?dist}
 License:	LGPLv2+
 Group: 		System Environment/Libraries
 URL: 		http://libquicktime.sourceforge.net/
-Source0: 	http://downloads.sourceforge.net/libquicktime/%{name}-%{version}.tar.gz
-Patch0:         libquicktime-backport.patch
-Patch1:         libav10.patch
-Patch2:         ffmpeg_2.9.patch
+#Source0: 	http://downloads.sourceforge.net/libquicktime/%{name}-%{version}.tar.gz
+Source0:    https://github.com/sergiomb2/%{name}/archive/%{githash}/%{name}-%{version}-%{shorthash}.tar.gz
 
 BuildRequires:	libdv-devel
 BuildRequires:	libpng-devel libjpeg-devel libGLU-devel
@@ -21,6 +25,9 @@ BuildRequires:	gtk2-devel >= 2.4.0
 BuildRequires:  schroedinger-devel
 BuildRequires:  gettext-devel
 %{?_with_faac:BuildRequires: faac-devel}
+
+# Packages for re-configuration
+BuildRequires:  autoconf, automake, libtool
 
 %package utils
 Summary:	Utilities for working with Quicktime files
@@ -58,15 +65,12 @@ enhancements. This package contains development files for %{name}.
 # --------------------------------------------------------------------
 
 %prep
-%setup -q
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-
+%setup -q -n %{name}-%{githash}
 
 # --------------------------------------------------------------------
 
 %build
+./autogen.sh
 %configure \
 	--enable-gpl \
 	--disable-rpath \
@@ -81,12 +85,12 @@ enhancements. This package contains development files for %{name}.
 sed -i.rpath 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
 sed -i.rpath 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 
-make %{?_smp_mflags}
+%make_build
 
 # --------------------------------------------------------------------
 
 %install
-make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p"
+%make_install
 find $RPM_BUILD_ROOT%{_libdir} -type f -a -name \*.la -exec rm {} \;
 
 
@@ -126,6 +130,11 @@ find $RPM_BUILD_ROOT%{_libdir} -type f -a -name \*.la -exec rm {} \;
 # --------------------------------------------------------------------
 
 %changelog
+* Sun Jan 21 2018 Sérgio Basto <sergio@serjux.com> - 1.2.4-28.20170926.93.g4d45177
+- Update to 1.2.4-93-g4d45177
+- Upstream have the official patches for ffmpeg_2.9.patch libav10.patch libquicktime-backport.patch
+- This release have some security fixes
+
 * Wed Jan 17 2018 Leigh Scott <leigh123linux@googlemail.com> - 1.2.4-27
 - Rebuilt for ffmpeg-3.5 git
 
