@@ -11,8 +11,7 @@ Release:	28%{?rel_string}%{?dist}
 License:	LGPLv2+
 Group: 		System Environment/Libraries
 URL: 		http://libquicktime.sourceforge.net/
-#Source0: 	http://downloads.sourceforge.net/libquicktime/%{name}-%{version}.tar.gz
-Source0:    https://github.com/sergiomb2/%{name}/archive/%{githash}/%{name}-%{version}-%{shorthash}.tar.gz
+Source0: 	https://sourceforge.net/code-snapshots/git/l/li/libquicktime/git.git/libquicktime-git-%{githash}.zip
 
 BuildRequires:	libdv-devel
 BuildRequires:	libpng-devel libjpeg-devel libGLU-devel
@@ -65,7 +64,7 @@ enhancements. This package contains development files for %{name}.
 # --------------------------------------------------------------------
 
 %prep
-%setup -q -n %{name}-%{githash}
+%setup -q -n %{name}-git-%{githash}
 
 # --------------------------------------------------------------------
 
@@ -134,6 +133,7 @@ find $RPM_BUILD_ROOT%{_libdir} -type f -a -name \*.la -exec rm {} \;
 - Update to 1.2.4-93-g4d45177
 - Upstream have the official patches for ffmpeg_2.9.patch libav10.patch libquicktime-backport.patch
 - This release have some security fixes
+- Update to official git URL.
 
 * Wed Jan 17 2018 Leigh Scott <leigh123linux@googlemail.com> - 1.2.4-27
 - Rebuilt for ffmpeg-3.5 git
