@@ -1,13 +1,13 @@
-%define vers_string 1.2.4-93-g4d45177
-%define rel_string .20170926.93.g4d45177
-%define githash 4d451774b89fbdd2f53204f92b71837af7b06761
+%define vers_string 1.2.4-98-g859a717
+%define rel_string .20180202.98.g859a717
+%define githash 859a717cef3c624c8e9125b0eaf4d10deb784e98
 %define shorthash %(c=%{githash}; echo ${c:0:10})
 
 
 Summary: 	Library for reading and writing Quicktime files
 Name: 		libquicktime
 Version:	1.2.4
-Release:	28%{?rel_string}%{?dist}
+Release:	29%{?rel_string}%{?dist}
 License:	LGPLv2+
 Group: 		System Environment/Libraries
 URL: 		http://libquicktime.sourceforge.net/
@@ -102,7 +102,8 @@ find $RPM_BUILD_ROOT%{_libdir} -type f -a -name \*.la -exec rm {} \;
 %postun -p /sbin/ldconfig
 
 %files -f %{name}.lang
-%doc COPYING README TODO
+%license COPYING
+%doc README TODO
 %{_libdir}/%{name}*.so.*
 %dir %{_libdir}/%{name}
 %{_libdir}/%{name}/lqt_*.so
@@ -129,6 +130,9 @@ find $RPM_BUILD_ROOT%{_libdir} -type f -a -name \*.la -exec rm {} \;
 # --------------------------------------------------------------------
 
 %changelog
+* Sat Feb 03 2018 Sérgio Basto <sergio@serjux.com> - 1.2.4-29.20180202.98.g859a717
+- Update to 1.2.4-98-g859a717 from branch master
+
 * Sun Jan 21 2018 Sérgio Basto <sergio@serjux.com> - 1.2.4-28.20170926.93.g4d45177
 - Update to 1.2.4-93-g4d45177
 - Upstream have the official patches for ffmpeg_2.9.patch libav10.patch libquicktime-backport.patch

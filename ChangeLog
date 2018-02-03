@@ -1,3 +1,38 @@
+commit 859a717cef3c624c8e9125b0eaf4d10deb784e98
+Author: Steven Schultz <sms@Stevens-Mac-mini.local>
+Date:   Fri Feb 2 13:03:32 2018 -0600
+
+    remove m4/avcodec.m4, not needed with changes to configure.ac
+
+commit 9349111e99620426d1b258e3e3940fc44ccbdf1a
+Author: Steven Schultz <sms@Stevens-Mac-mini.local>
+Date:   Fri Feb 2 13:01:22 2018 -0600
+
+    don't need avcodec.m4 with changes to configure.ac
+
+commit 8b4929f014b7ad83665e292423daeea4224f2526
+Author: Steven Schultz <sms@Stevens-Mac-mini.local>
+Date:   Fri Feb 2 12:58:15 2018 -0600
+
+    cleanup the libavcode and libswscale version checking
+
+commit 8569de48eaac91aa9edab6e4e411802571e23a05
+Author: Steven Schultz <sms@Stevens-Mac-mini.local>
+Date:   Fri Feb 2 12:56:27 2018 -0600
+
+    since it doesn't compile with modern ffmpeg might as well clean it up
+
+commit 7992b2f105eeba0ec088cf7c0870d7f957a29608
+Author: Steven Schultz <sms@Stevens-Mac-mini.local>
+Date:   Thu Feb 1 10:24:50 2018 -0600
+
+    libavcodec can not be built due to completely incompatible API.  Major version
+    54 was the last known version to build with ffmpeg/libavcodec and the current
+    version is 58.
+    
+    Effectively disable libavcodec until someone figures out how to overhaul
+    libquicktime to build with current ffmpeg/libavcodec
+
 commit 4d451774b89fbdd2f53204f92b71837af7b06761
 Author: gmerlin <gmerlin>
 Date:   Tue Sep 26 11:46:13 2017 +0000
