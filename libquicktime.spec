@@ -1,13 +1,13 @@
 %define vers_string 1.2.4-98-g859a717
-%define rel_string .20180202.98.g859a717
-%define githash 859a717cef3c624c8e9125b0eaf4d10deb784e98
+%define rel_string .112.20180804gitfff99cd
+%define githash fff99cdd4126f379ae538c4d3b09265242512384
 %define shorthash %(c=%{githash}; echo ${c:0:10})
 
 
 Summary: 	Library for reading and writing Quicktime files
 Name: 		libquicktime
 Version:	1.2.4
-Release:	32%{?rel_string}%{?dist}
+Release:	33%{?rel_string}%{?dist}
 License:	LGPLv2+
 Group: 		System Environment/Libraries
 URL: 		http://libquicktime.sourceforge.net/
@@ -130,6 +130,9 @@ find $RPM_BUILD_ROOT%{_libdir} -type f -a -name \*.la -exec rm {} \;
 # --------------------------------------------------------------------
 
 %changelog
+* Fri Oct 05 2018 Sérgio Basto <sergio@serjux.com> - 1.2.4-33.112.20180804gitfff99cd
+- Update to 1.2.4.112.20180804gitfff99cd from branch master
+
 * Thu Oct 04 2018 Sérgio Basto <sergio@serjux.com> - 1.2.4-32.20180202.98.g859a717
 - Mass rebuild for x264 and/or x265
 
