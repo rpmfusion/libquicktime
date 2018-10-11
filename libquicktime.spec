@@ -4,39 +4,49 @@
 %define shorthash %(c=%{githash}; echo ${c:0:10})
 
 
-Summary: 	Library for reading and writing Quicktime files
-Name: 		libquicktime
-Version:	1.2.4
-Release:	33%{?rel_string}%{?dist}
-License:	LGPLv2+
-Group: 		System Environment/Libraries
-URL: 		http://libquicktime.sourceforge.net/
-Source0: 	https://sourceforge.net/code-snapshots/git/l/li/libquicktime/git.git/libquicktime-git-%{githash}.zip
+Summary:    Library for reading and writing Quicktime files
+Name:       libquicktime
+Version:    1.2.4
+Release:    34%{?rel_string}%{?dist}
+License:    LGPLv2+
+Group:      System Environment/Libraries
+URL:        http://libquicktime.sourceforge.net/
+Source0:    https://sourceforge.net/code-snapshots/git/l/li/libquicktime/git.git/libquicktime-git-%{githash}.zip
 
-BuildRequires:	libdv-devel
-BuildRequires:	libpng-devel libjpeg-devel libGLU-devel
-BuildRequires:	libvorbis-devel ffmpeg-devel
-BuildRequires:	schroedinger-devel
-BuildRequires:	lame-devel alsa-lib-devel libXt-devel libXaw-devel libXv-devel
-BuildRequires:	libdv-devel >= 0.102-4 x264-devel faad2-devel
-BuildRequires:	libavc1394-devel libraw1394-devel >= 0.9.0-12
-BuildRequires:	gtk2-devel >= 2.4.0
+BuildRequires:  libdv-devel
+BuildRequires:  libpng-devel
+BuildRequires:  libjpeg-devel
+BuildRequires:  libGLU-devel
+BuildRequires:  libvorbis-devel
+BuildRequires:  ffmpeg-devel
+BuildRequires:  schroedinger-devel
+BuildRequires:  lame-devel
+BuildRequires:  alsa-lib-devel
+BuildRequires:  libXt-devel
+BuildRequires:  libXaw-devel
+BuildRequires:  libXv-devel
+BuildRequires:  libdv-devel >= 0.102-4
+BuildRequires:  x264-devel
+BuildRequires:  faad2-devel
+BuildRequires:  libavc1394-devel
+BuildRequires:  libraw1394-devel >= 0.9.0-12
+BuildRequires:  gtk2-devel >= 2.4.0
 BuildRequires:  schroedinger-devel
 BuildRequires:  gettext-devel
 %{?_with_faac:BuildRequires: faac-devel}
 
 # Packages for re-configuration
-BuildRequires:  autoconf, automake, libtool
+BuildRequires:  autoconf automake libtool
 
 %package utils
-Summary:	Utilities for working with Quicktime files
-Group:		Applications/Multimedia
+Summary:    Utilities for working with Quicktime files
+Group:      Applications/Multimedia
 
 %package devel
-Summary:	Development files for libquicktime
-Group:		Development/Libraries
-Requires:	%{name}%{?_isa} = %{version}-%{release}
-Requires:	zlib-devel
+Summary:    Development files for libquicktime
+Group:      Development/Libraries
+Requires:   %{name}%{?_isa} = %{version}-%{release}
+Requires:   zlib-devel
 
 # --------------------------------------------------------------------
 
@@ -71,14 +81,14 @@ enhancements. This package contains development files for %{name}.
 %build
 ./autogen.sh
 %configure \
-	--enable-gpl \
-	--disable-rpath \
-	--with-cpuflags="$RPM_OPT_FLAGS" \
-	--disable-dependency-tracking \
-	--without-doxygen \
-	--disable-static \
-	--with-libdv \
-	--enable-libswscale
+    --enable-gpl \
+    --disable-rpath \
+    --with-cpuflags="$RPM_OPT_FLAGS" \
+    --disable-dependency-tracking \
+    --without-doxygen \
+    --disable-static \
+    --with-libdv \
+    --enable-libswscale
 
 # remove rpath from libtool
 sed -i.rpath 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
@@ -130,6 +140,10 @@ find $RPM_BUILD_ROOT%{_libdir} -type f -a -name \*.la -exec rm {} \;
 # --------------------------------------------------------------------
 
 %changelog
+* Thu Oct 11 2018 Sérgio Basto <sergio@serjux.com> - 1.2.4-34.112.20180804gitfff99cd
+- Rebuild for x264 in F29
+- Expand tabs to spaces
+
 * Fri Oct 05 2018 Sérgio Basto <sergio@serjux.com> - 1.2.4-33.112.20180804gitfff99cd
 - Update to 1.2.4.112.20180804gitfff99cd from branch master
 
@@ -438,4 +452,4 @@ find $RPM_BUILD_ROOT%{_libdir} -type f -a -name \*.la -exec rm {} \;
 - Major fix from from Diag (plugins are now in the package).
 
 * Wed Apr 16 2003 Dams <anvil[AT]livna.org> 
-- Initial build.	
+- Initial build.    
