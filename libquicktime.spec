@@ -7,12 +7,13 @@
 Summary:    Library for reading and writing Quicktime files
 Name:       libquicktime
 Version:    1.2.4
-Release:    34%{?rel_string}%{?dist}
+Release:    35%{?rel_string}%{?dist}
 License:    LGPLv2+
-Group:      System Environment/Libraries
 URL:        http://libquicktime.sourceforge.net/
 Source0:    https://sourceforge.net/code-snapshots/git/l/li/libquicktime/git.git/libquicktime-git-%{githash}.zip
 
+BuildRequires:  gcc
+%{?el7:BuildRequires: epel-rpm-macros}
 BuildRequires:  libdv-devel
 BuildRequires:  libpng-devel
 BuildRequires:  libjpeg-devel
@@ -40,11 +41,9 @@ BuildRequires:  autoconf automake libtool
 
 %package utils
 Summary:    Utilities for working with Quicktime files
-Group:      Applications/Multimedia
 
 %package devel
 Summary:    Development files for libquicktime
-Group:      Development/Libraries
 Requires:   %{name}%{?_isa} = %{version}-%{release}
 Requires:   zlib-devel
 
@@ -74,7 +73,7 @@ enhancements. This package contains development files for %{name}.
 # --------------------------------------------------------------------
 
 %prep
-%setup -q -n %{name}-git-%{githash}
+%autosetup -n %{name}-git-%{githash}
 
 # --------------------------------------------------------------------
 
@@ -108,15 +107,13 @@ find $RPM_BUILD_ROOT%{_libdir} -type f -a -name \*.la -exec rm {} \;
 
 # --------------------------------------------------------------------
 
-%post -p /sbin/ldconfig
-%postun -p /sbin/ldconfig
+%ldconfig_scriptlets
 
 %files -f %{name}.lang
 %license COPYING
 %doc README TODO
 %{_libdir}/%{name}*.so.*
-%dir %{_libdir}/%{name}
-%{_libdir}/%{name}/lqt_*.so
+%{_libdir}/%{name}/
 
 %files utils
 %{_bindir}/libquicktime_config
@@ -140,6 +137,11 @@ find $RPM_BUILD_ROOT%{_libdir} -type f -a -name \*.la -exec rm {} \;
 # --------------------------------------------------------------------
 
 %changelog
+* Mon Nov 12 2018 Antonio Trande <sagitter@fedoraproject.org> - 1.2.4-35.112.20180804gitfff99cd
+- Rebuild for ffmpeg-3.* on el7
+- Set ld scriptlets
+- Remove obsolete Group tags
+
 * Thu Oct 11 2018 Sérgio Basto <sergio@serjux.com> - 1.2.4-34.112.20180804gitfff99cd
 - Rebuild for x264 in F29
 - Expand tabs to spaces
