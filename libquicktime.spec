@@ -7,7 +7,7 @@
 Summary:    Library for reading and writing Quicktime files
 Name:       libquicktime
 Version:    1.2.4
-Release:    37%{?rel_string}%{?dist}
+Release:    39%{?rel_string}%{?dist}
 License:    LGPLv2+
 URL:        http://libquicktime.sourceforge.net/
 Source0:    https://sourceforge.net/code-snapshots/git/l/li/libquicktime/git.git/libquicktime-git-%{githash}.zip
@@ -137,6 +137,12 @@ find $RPM_BUILD_ROOT%{_libdir} -type f -a -name \*.la -exec rm {} \;
 # --------------------------------------------------------------------
 
 %changelog
+* Tue Aug 06 2019 Leigh Scott <leigh123linux@gmail.com> - 1.2.4-39.112.20180804gitfff99cd
+- Rebuild for new ffmpeg version
+
+* Tue Aug 06 2019 Leigh Scott <leigh123linux@gmail.com> - 1.2.4-38.112.20180804gitfff99cd
+- Rebuild for new ffmpeg version
+
 * Tue Mar 12 2019 Sérgio Basto <sergio@serjux.com> - 1.2.4-37.112.20180804gitfff99cd
 - Mass rebuild for x264
 
