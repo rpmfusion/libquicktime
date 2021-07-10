@@ -7,7 +7,7 @@
 Summary:    Library for reading and writing Quicktime files
 Name:       libquicktime
 Version:    1.2.4
-Release:    49%{?rel_string}%{?dist}
+Release:    50%{?rel_string}%{?dist}
 License:    LGPLv2+
 URL:        http://libquicktime.sourceforge.net/
 Source0:    https://sourceforge.net/code-snapshots/git/l/li/libquicktime/git.git/libquicktime-git-%{githash}.zip
@@ -137,6 +137,9 @@ find $RPM_BUILD_ROOT%{_libdir} -type f -a -name \*.la -exec rm {} \;
 # --------------------------------------------------------------------
 
 %changelog
+* Sat Jul 10 2021 Sérgio Basto <sergio@serjux.com> - 1.2.4-50.112.20180804gitfff99cd
+- Mass rebuild for x264-0.163
+
 * Wed Feb 03 2021 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 1.2.4-49.112.20180804gitfff99cd
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
 
