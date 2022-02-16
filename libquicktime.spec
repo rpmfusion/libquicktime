@@ -1,13 +1,13 @@
 %define vers_string 1.2.4-98-g859a717
-%define rel_string .122.20210314git4e11b75
-%define githash 4e11b756462d21c941e2a2d636c234b4ab177552
+%define rel_string .124.20210720git2729591
+%define githash 27295919b3a1036ba8bc06cec414dcc501f72d89
 %define shorthash %(c=%{githash}; echo ${c:0:10})
 
 
 Summary:    Library for reading and writing Quicktime files
 Name:       libquicktime
 Version:    1.2.4
-Release:    53%{?rel_string}%{?dist}
+Release:    54%{?rel_string}%{?dist}
 License:    LGPLv2+
 URL:        http://libquicktime.sourceforge.net/
 Source0:    https://sourceforge.net/code-snapshots/git/l/li/libquicktime/git.git/libquicktime-git-%{githash}.zip
@@ -137,6 +137,10 @@ find $RPM_BUILD_ROOT%{_libdir} -type f -a -name \*.la -exec rm {} \;
 # --------------------------------------------------------------------
 
 %changelog
+* Wed Feb 16 2022 Sérgio Basto <sergio@serjux.com> - 1.2.4-54.124.20210720git2729591
+- Update to 1.2.4.124.20210720git2729591 (ffmpeg completely borked the API with
+  libavcodec version 59. disable libavcodec)
+
 * Wed Feb 09 2022 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 1.2.4-53.122.20210314git4e11b75
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
 
