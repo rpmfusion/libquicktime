@@ -20,7 +20,6 @@ BuildRequires:  libjpeg-devel
 BuildRequires:  libGLU-devel
 BuildRequires:  libvorbis-devel
 BuildRequires:  ffmpeg-devel
-BuildRequires:  schroedinger-devel
 BuildRequires:  lame-devel
 BuildRequires:  alsa-lib-devel
 BuildRequires:  libXt-devel
@@ -32,7 +31,6 @@ BuildRequires:  faad2-devel
 BuildRequires:  libavc1394-devel
 BuildRequires:  libraw1394-devel >= 0.9.0-12
 BuildRequires:  gtk2-devel >= 2.4.0
-BuildRequires:  schroedinger-devel
 BuildRequires:  gettext-devel
 %{?_with_faac:BuildRequires: faac-devel}
 
