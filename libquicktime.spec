@@ -5,8 +5,6 @@
 
 %if 0%{?fedora}
 %global _with_dv   1
-%global _with_1394 1
-%global _with_gtk2 1
 %endif
 
 Summary:    Library for reading and writing Quicktime files
@@ -32,13 +30,9 @@ BuildRequires:  libXv-devel
 %{?_with_dv:BuildRequires: libdv-devel >= 0.102-4}
 BuildRequires:  x264-devel
 BuildRequires:  faad2-devel
-%{?_with_1394:
 BuildRequires:  libavc1394-devel
 BuildRequires:  libraw1394-devel >= 0.9.0-12
-}
-%{?_with_gtk2:
 BuildRequires:  gtk2-devel >= 2.4.0
-}
 BuildRequires:  gettext-devel
 %{?_with_faac:BuildRequires: faac-devel}
 
