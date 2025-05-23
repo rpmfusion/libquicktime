@@ -16,7 +16,6 @@ URL:        http://libquicktime.sourceforge.net/
 Source0:    https://sourceforge.net/code-snapshots/git/l/li/libquicktime/git.git/libquicktime-git-%{githash}.zip
 
 BuildRequires:  gcc
-BuildRequires:  libdv-devel
 BuildRequires:  libpng-devel
 BuildRequires:  libjpeg-devel
 BuildRequires:  libGLU-devel
