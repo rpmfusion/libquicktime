@@ -3,17 +3,21 @@
 %define githash 27295919b3a1036ba8bc06cec414dcc501f72d89
 %define shorthash %(c=%{githash}; echo ${c:0:10})
 
+%if 0%{?fedora}
+%global _with_dv   1
+%global _with_1394 1
+%global _with_gtk2 1
+%endif
 
 Summary:    Library for reading and writing Quicktime files
 Name:       libquicktime
 Version:    1.2.4
-Release:    61%{?rel_string}%{?dist}
+Release:    62%{?rel_string}%{?dist}
 License:    LGPLv2+
 URL:        http://libquicktime.sourceforge.net/
 Source0:    https://sourceforge.net/code-snapshots/git/l/li/libquicktime/git.git/libquicktime-git-%{githash}.zip
 
 BuildRequires:  gcc
-%{?el7:BuildRequires: epel-rpm-macros}
 BuildRequires:  libdv-devel
 BuildRequires:  libpng-devel
 BuildRequires:  libjpeg-devel
@@ -25,12 +29,16 @@ BuildRequires:  alsa-lib-devel
 BuildRequires:  libXt-devel
 BuildRequires:  libXaw-devel
 BuildRequires:  libXv-devel
-BuildRequires:  libdv-devel >= 0.102-4
+%{?_with_dv:BuildRequires: libdv-devel >= 0.102-4}
 BuildRequires:  x264-devel
 BuildRequires:  faad2-devel
+%{?_with_1394:
 BuildRequires:  libavc1394-devel
 BuildRequires:  libraw1394-devel >= 0.9.0-12
+}
+%{?_with_gtk2:
 BuildRequires:  gtk2-devel >= 2.4.0
+}
 BuildRequires:  gettext-devel
 %{?_with_faac:BuildRequires: faac-devel}
 
@@ -84,7 +92,7 @@ enhancements. This package contains development files for %{name}.
     --disable-dependency-tracking \
     --without-doxygen \
     --disable-static \
-    --with-libdv \
+    %{?_with_libdv:--with-libdv} \
     --enable-libswscale
 
 # remove rpath from libtool
@@ -105,7 +113,6 @@ find $RPM_BUILD_ROOT%{_libdir} -type f -a -name \*.la -exec rm {} \;
 
 # --------------------------------------------------------------------
 
-%ldconfig_scriptlets
 
 %files -f %{name}.lang
 %license COPYING
@@ -135,6 +142,9 @@ find $RPM_BUILD_ROOT%{_libdir} -type f -a -name \*.la -exec rm {} \;
 # --------------------------------------------------------------------
 
 %changelog
+* Fri May 23 2025 Nicolas Chauvet <kwizart@gmail.com> - 1.2.4-62.124.20210720git2729591
+- add el10 conditions
+
 * Tue Jan 28 2025 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 1.2.4-61.124.20210720git2729591
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
